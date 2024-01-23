@@ -26,7 +26,14 @@ jobs:
         run: |
           chmod +x mvnw
           ./mvnw compile
-#      - name: Code vulnerability scanning
+      - name: Validate Kubernetes manifests
+        uses: stefanprodan/kube-tools@v1 ❶
+        with:
+          kubectl: 1.24.3 ❷
+          kubeval: 0.16.1 ❸
+          command: |
+            kubeval --strict -d k8s
+  #      - name: Code vulnerability scanning
 #        uses: anchore/scan-action@v3
 #        id: scan
 #        with:
